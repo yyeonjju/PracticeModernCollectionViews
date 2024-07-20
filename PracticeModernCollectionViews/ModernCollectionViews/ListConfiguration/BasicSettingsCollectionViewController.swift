@@ -29,7 +29,7 @@ enum SettingsSection : String, CaseIterable {
 
 final class BasicSettingsCollectionViewController : UIViewController {
     // MARK: - UI
-
+    
     lazy var listCollectionView = {
         //⭐️ Layout
         let cv = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -43,11 +43,11 @@ final class BasicSettingsCollectionViewController : UIViewController {
     //⭐️ data
     //제네릭 타입 📌<SectionIdentifierType, ItemIdentifierType>
     private var dataSource : UICollectionViewDiffableDataSource<SettingsSection, String>!
-
+    
     
     
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,18 +68,20 @@ final class BasicSettingsCollectionViewController : UIViewController {
         }
         
     }
-
+    
     
     
     // MARK: - CollectionView Layout
-
+    
     //⭐️ Layout
     //UICollectionViewFlowLayout(X)
     //UICollectionViewCompositionalLayout(📍13+) - UICollectionLayoutListConfiguration(📍14+)  (O)
     private func createLayout() -> UICollectionViewLayout {
+        
         var configuration = UICollectionLayoutListConfiguration(appearance: .grouped)
         configuration.backgroundColor = .clear
-//        configuration.showsSeparators = false
+        //        configuration.showsSeparators = false
+        configuration.headerMode = .supplementary //⭐️Layout - ✅Header✅
         
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         return layout
@@ -88,51 +90,84 @@ final class BasicSettingsCollectionViewController : UIViewController {
     
     
     // MARK: - CollectionView PresentationCell/Data
+    
+    func configureCell () {
+        
+    }
     func configureDataSource() {
-        //⭐️ Presentation (어떤 셀 쓰는지 정의)
+        //⭐️ Presentation
+        //✅CellRegistration✅
         //register(X)
         //UICollectionView.CellRegistration(📍14+) (O) CellRegistration<Cell, Item>
         //UICollectionViewListCell -> 시스템 스타일을 사용
-        var registration  : UICollectionView.CellRegistration<UICollectionViewListCell, String?>!
+        let cellRegistration = makeCellRegistration()
         
+        //✅HeaderRegistration✅
+        let headerCellRegistration = makeSectionHeaderRegistration()
+        
+        
+        
+        //⭐️ Data
+        //✅Cell✅
+        //cellForRowAt(X)
+        //UICollectionViewDiffableDataSource(📍13+)
+        dataSource = UICollectionViewDiffableDataSource(collectionView: listCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
+            
+            //dequeueReusableCell (X)
+            //dequeueConfiguredReusableCell(📍14+) (O)
+            let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+            
+            return cell
+        })
+        //✅Header✅
+        dataSource.supplementaryViewProvider = { (collectionView, elementKind, indexPath) -> UICollectionReusableView? in
+            if elementKind == UICollectionView.elementKindSectionHeader {
+                return collectionView.dequeueConfiguredReusableSupplementary(using: headerCellRegistration, for: indexPath)
+            } else {
+                return nil
+            }
+        }
+        
+    }
+    
+    //✅Cell Registration✅
+    private func makeCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, String?> {
         //각 셀에 들어갈 데이터가 itemIdentifier 파라미터로 들어온다
-        registration = UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
+        let cellRegistration = UICollectionView.CellRegistration { cell, indexPath, itemIdentifier in
             
             //⭐️ Presentation
             //Configuration types - ContentConfiguration (📍14+)
             var content = UIListContentConfiguration.valueCell() //시스템셀 지원(📍14+)
-//            content.text = itemIdentifier?.name
             content.text = itemIdentifier
+            content.textProperties.font = .systemFont(ofSize: 13)
             content.textProperties.color = .white
-//            content.textProperties.font = .boldSystemFont(ofSize: 20)
-//            content.secondaryText = itemIdentifier?.price.formatted()
-//            content.secondaryTextProperties.color = .cyan
             
             //Configuration types - BackgroundConfiguration (📍14+)
             var backgroundCongfig = UIBackgroundConfiguration.listGroupedCell()
             backgroundCongfig.backgroundColor = .clear
-//            backgroundCongfig.cornerRadius = 20
-//            backgroundCongfig.strokeColor = .systemGray
-//            backgroundCongfig.strokeWidth = 10
-
+            
             
             
             cell.contentConfiguration = content
             cell.backgroundConfiguration = backgroundCongfig
         }
         
+        return cellRegistration
+    }
+    
+    //✅Header Registration✅
+    private func makeSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<UICollectionViewListCell> {
         
-        //⭐️ Data
-        //cellForRowAt(X)
-        //UICollectionViewDiffableDataSource(📍13+)
-        dataSource = UICollectionViewDiffableDataSource(collectionView: listCollectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-
-            //dequeueReusableCell (X)
-            //dequeueConfiguredReusableCell(📍14+) (O)
-            let cell = collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: itemIdentifier)
+        let supplementaryRegistration = UICollectionView.SupplementaryRegistration<UICollectionViewListCell>(elementKind: UICollectionView.elementKindSectionHeader) { (headerView, _, indexPath) in
+            let sectionKind = SettingsSection.allCases[indexPath.section]
             
-            return cell
-        })
+            var content = UIListContentConfiguration.sidebarHeader()
+            content.text = sectionKind.rawValue
+            content.textProperties.color = .gray
+            headerView.contentConfiguration = content
+        }
+        
+        return supplementaryRegistration
     }
     
     //⭐️ Data
@@ -149,5 +184,5 @@ final class BasicSettingsCollectionViewController : UIViewController {
         //snapshot(📍14+) (O)
         dataSource.apply(snapshot)
     }
-
+    
 }
