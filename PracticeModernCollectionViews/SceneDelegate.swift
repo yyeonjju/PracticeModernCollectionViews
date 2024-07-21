@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: scene)
         
-        let vc = UINavigationController(rootViewController: BasicSettingsCollectionViewController())
+        let vc = UINavigationController(rootViewController: ChattingListViewController())
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }

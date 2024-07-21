@@ -15,6 +15,8 @@
 		7D92B7732C4BDD570000EEB0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7D92B7722C4BDD570000EEB0 /* Base */; };
 		7D92B77F2C4BE0110000EEB0 /* BasicSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D92B77E2C4BE0110000EEB0 /* BasicSettingsCollectionViewController.swift */; };
 		7D92B7822C4BE37E0000EEB0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7D92B7812C4BE37E0000EEB0 /* SnapKit */; };
+		7D92B7842C4D11D50000EEB0 /* ChattingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D92B7832C4D11D50000EEB0 /* ChattingListViewController.swift */; };
+		7D92B7872C4D12BA0000EEB0 /* ChattingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D92B7862C4D12BA0000EEB0 /* ChattingData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		7D92B7722C4BDD570000EEB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D92B7742C4BDD570000EEB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D92B77E2C4BE0110000EEB0 /* BasicSettingsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSettingsCollectionViewController.swift; sourceTree = "<group>"; };
+		7D92B7832C4D11D50000EEB0 /* ChattingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingListViewController.swift; sourceTree = "<group>"; };
+		7D92B7862C4D12BA0000EEB0 /* ChattingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,7 @@
 		7D92B7652C4BDD550000EEB0 /* PracticeModernCollectionViews */ = {
 			isa = PBXGroup;
 			children = (
+				7D92B7852C4D12AA0000EEB0 /* Data */,
 				7D92B77C2C4BDFBB0000EEB0 /* ModernCollectionViews */,
 				7D92B7662C4BDD550000EEB0 /* AppDelegate.swift */,
 				7D92B7682C4BDD550000EEB0 /* SceneDelegate.swift */,
@@ -84,8 +89,17 @@
 			isa = PBXGroup;
 			children = (
 				7D92B77E2C4BE0110000EEB0 /* BasicSettingsCollectionViewController.swift */,
+				7D92B7832C4D11D50000EEB0 /* ChattingListViewController.swift */,
 			);
 			path = ListConfiguration;
+			sourceTree = "<group>";
+		};
+		7D92B7852C4D12AA0000EEB0 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				7D92B7862C4D12BA0000EEB0 /* ChattingData.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,8 +180,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D92B77F2C4BE0110000EEB0 /* BasicSettingsCollectionViewController.swift in Sources */,
+				7D92B7872C4D12BA0000EEB0 /* ChattingData.swift in Sources */,
 				7D92B76B2C4BDD550000EEB0 /* ViewController.swift in Sources */,
 				7D92B7672C4BDD550000EEB0 /* AppDelegate.swift in Sources */,
+				7D92B7842C4D11D50000EEB0 /* ChattingListViewController.swift in Sources */,
 				7D92B7692C4BDD550000EEB0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

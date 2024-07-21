@@ -89,11 +89,8 @@ final class BasicSettingsCollectionViewController : UIViewController {
     }
     
     
-    // MARK: - CollectionView PresentationCell/Data
+    // MARK: - CollectionView Presentation/Data
     
-    func configureCell () {
-        
-    }
     func configureDataSource() {
         //⭐️ Presentation
         //✅CellRegistration✅
@@ -130,6 +127,7 @@ final class BasicSettingsCollectionViewController : UIViewController {
         
     }
     
+    //⭐️ Presentation
     //✅Cell Registration✅
     private func makeCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewCell, String?> {
         //각 셀에 들어갈 데이터가 itemIdentifier 파라미터로 들어온다
@@ -155,6 +153,7 @@ final class BasicSettingsCollectionViewController : UIViewController {
         return cellRegistration
     }
     
+    //⭐️ Presentation
     //✅Header Registration✅
     private func makeSectionHeaderRegistration() -> UICollectionView.SupplementaryRegistration<UICollectionViewListCell> {
         
@@ -182,7 +181,9 @@ final class BasicSettingsCollectionViewController : UIViewController {
         
         // reloadData(X)
         //snapshot(📍14+) (O)
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot){
+            print("⭐️⭐️snapshot - datasource apply - completion ")
+        }
     }
     
 }
